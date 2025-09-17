@@ -42,7 +42,7 @@ $(document).ready(function() {
 		} else if (id == "partTitle1") {
 			pdfName = 'engine.pdf';
 		} else if (id == "partTitle2") {
-			pdfName = 'shelf_angle_brick.pdf';
+			pdfName = 'brick.pdf';
 		}
 
 		window.open('pdf/' + pdfName, '_blank');
