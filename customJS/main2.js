@@ -2,6 +2,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three-ext/OrbitControls.js';
 import { FBXLoader } from 'three-ext/FBXLoader.js';
 import { camDis, getCSize, groundDis } from './value.js';
+const envMap = new THREE.CubeTextureLoader().load([
+    '../image/posx.jpg', '../image/negx.jpg',
+    '../image/posy.jpg', '../image/negy.jpg',
+    '../image/posz.jpg', '../image/negz.jpg'
+]);
 
 const containerWrapper2 = document.getElementById("containerWrapper2");
 const container2 = document.getElementById('container2');
@@ -12,7 +17,7 @@ let totalGroup2, model2;
 
 init2();
 animate();
-loadFBXModel("/models/drone-opt-100.FBX");
+loadFBXModel("/models/brick-wall.FBX");
 
 function init2() {
     const cSize = getCSize(2);
@@ -42,7 +47,6 @@ function init2() {
     controls2.maxDistance = camDis * 3;
     controls2.minDistance = camDis / 2;
     controls2.maxPolarAngle = Math.PI/2;
-    controls2.enabled = false;
 
     lightAmbient2 = new THREE.AmbientLight( 0xcccccc, 0.8 );
     lightMain2 = new THREE.DirectionalLight( 0xffffff, 1.2 );
@@ -60,8 +64,10 @@ function loadFBXModel(url) { // , onLoad
         object.children[0].scale.set(1, 1, 1);
         var vBox = new THREE.Box3().setFromObject(object);
         var vSize = vBox.getSize(new THREE.Vector3());
-        object.children[0].position.z -= (vBox.min.z + vBox.max.z) / 2;
-        object.children[0].material = new THREE.MeshStandardMaterial({ color: 0x88FFAA, reflectivity: 1, roughness:0 });
+        console.log(object);
+        // object.children[0].position.z -= (vBox.min.z + vBox.max.z) / 2;
+        object.children[0].material = new THREE.MeshStandardMaterial({ color: 0xFFAA88, reflectivity: 0.5, roughness:0.3, metalness: 0.3 });
+        object.children[1].material = new THREE.MeshStandardMaterial({ color: 0xAAAA88, reflectivity: 1, roughness:0, envMap:envMap, metalness: 0.8 });
 
         var scl = (camDis * 0.5) / vSize.y;
         object.scale.setScalar(scl); 

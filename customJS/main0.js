@@ -2,6 +2,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three-ext/OrbitControls.js';
 import { FBXLoader } from 'three-ext/FBXLoader.js';
 import { camDis, getCSize, groundDis } from './value.js';
+const envMap = new THREE.CubeTextureLoader().load([
+	'../image/posx.jpg', '../image/negx.jpg',
+	'../image/posy.jpg', '../image/negy.jpg',
+	'../image/posz.jpg', '../image/negz.jpg'
+]);
 
 const containerWrapper = document.getElementById("containerWrapper0");
 const container = document.getElementById('container0');
@@ -40,9 +45,8 @@ function init() {
 
 	controls = new OrbitControls( camera, renderer.domElement );
 	controls.maxDistance = camDis * 3;
-	controls.minDistance = camDis / 2;
+	controls.minDistance = camDis * 0.7;
 	controls.maxPolarAngle = Math.PI/2;
-	controls.enabled = false;
 
 	lightAmbient = new THREE.AmbientLight( 0xcccccc, 0.8 );
 	lightMain = new THREE.DirectionalLight( 0xffffff, 1.2 );
@@ -52,7 +56,6 @@ function init() {
 	scene.add( lightAmbient, lightMain, lightSub );
 
 	window.addEventListener( 'resize', onWindowResize );
-
 }
 
 function loadFBXModel(url) { // , onLoad
@@ -62,7 +65,7 @@ function loadFBXModel(url) { // , onLoad
 		var vBox = new THREE.Box3().setFromObject(object);
 		var vSize = vBox.getSize(new THREE.Vector3());
 		object.children[0].position.z -= (vBox.min.z + vBox.max.z) / 2;
-		object.children[0].material = new THREE.MeshStandardMaterial({ color: 0x88AAFF, reflectivity: 1, roughness:0 });
+		object.children[0].material = new THREE.MeshStandardMaterial({ color: 0x88AAFF, reflectivity: 1, roughness:0, envMap:envMap, metalness: 1 });
 
 		var scl = (camDis * 0.5) / vSize.y;
 		object.scale.setScalar(scl); 

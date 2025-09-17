@@ -5,7 +5,7 @@ export const canvasTop = 150;
 export function getCSize(num) {
 	const {innerWidth, innerHeight} = window;
 	var eWidth = 0, width = 0, gap = 0, height = 0, top = 0, left = 0;
-	if (innerWidth > 600) {
+	if (innerWidth > 900) {
 		if (innerWidth > 1440) {
 			eWidth = 1440/3;
 			gap = 50;
@@ -22,8 +22,9 @@ export function getCSize(num) {
 		gap = 30;
 		width = eWidth - gap * 2;
 		left = gap;
-		height = width;
-		top = canvasTop + (width + 120) * num;
-	}
+		height = 360;
+		top = canvasTop + (height + 120) * num;
+		// if (innerWidth > 600) { } else { }
+	} 
 	return {width, height, gap, top, left};
 }
