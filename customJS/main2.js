@@ -3,9 +3,9 @@ import { OrbitControls } from 'three-ext/OrbitControls.js';
 import { FBXLoader } from 'three-ext/FBXLoader.js';
 import { camDis, getCSize, groundDis } from './value.js';
 const envMap = new THREE.CubeTextureLoader().load([
-    '../image/posx.jpg', '../image/negx.jpg',
-    '../image/posy.jpg', '../image/negy.jpg',
-    '../image/posz.jpg', '../image/negz.jpg'
+	'../image/posx-re.jpg', '../image/negx-re.jpg',
+	'../image/posy-re.jpg', '../image/negy-re.jpg',
+	'../image/posz-re.jpg', '../image/negz-re.jpg'
 ]);
 
 const containerWrapper2 = document.getElementById("containerWrapper2");
@@ -48,7 +48,7 @@ function init2() {
     controls2.minDistance = camDis / 2;
     controls2.maxPolarAngle = Math.PI/2;
 
-    lightAmbient2 = new THREE.AmbientLight( 0xcccccc, 0.8 );
+    lightAmbient2 = new THREE.AmbientLight( 0xFFFFFF, 0.8 );
     lightMain2 = new THREE.DirectionalLight( 0xffffff, 1.2 );
     lightSub2 = new THREE.DirectionalLight( 0xffffff, 0.2 );
     lightMain2.position.set(-1, 1, -1);
@@ -67,7 +67,8 @@ function loadFBXModel(url) { // , onLoad
         console.log(object);
         // object.children[0].position.z -= (vBox.min.z + vBox.max.z) / 2;
         object.children[0].material = new THREE.MeshStandardMaterial({ color: 0xFFAA88, reflectivity: 0.5, roughness:0.3, metalness: 0.3 });
-        object.children[1].material = new THREE.MeshStandardMaterial({ color: 0xAAAA88, reflectivity: 1, roughness:0, envMap:envMap, metalness: 0.8 });
+        object.children[1].material = new THREE.MeshStandardMaterial({ color: 0xFFAA88, reflectivity: 1, roughness:0, envMap:envMap, metalness: 0.8 });
+        console.log(object);
 
         var scl = (camDis * 0.5) / vSize.y;
         object.scale.setScalar(scl); 

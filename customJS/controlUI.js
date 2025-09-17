@@ -1,5 +1,6 @@
 
-const starCount = 20;
+const starCount = 0;
+const starArea = document.getElementById('starArea');
 for (let i = 0; i < starCount; i++) {
 	const star = document.createElement('div');
 	star.className = 'star';
@@ -14,7 +15,7 @@ for (let i = 0; i < starCount; i++) {
 	star.style.width = `${size}px`;
 	star.style.height = `${size}px`;
 	star.style.animation = `starFade ${duration}s linear ${delay}s infinite`;
-	document.body.appendChild(star);
+	starArea.appendChild(star);
 }
 
 // Add this CSS to your stylesheet or inject it via JS
